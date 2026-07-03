@@ -6,31 +6,44 @@ import { bugController } from './bugs.controller';
 
 const router = Router();
 
-router.post('/:id', bugController.createBug);
+  
+router.post(
+  '/:id',
+  auth(Role.Admin, Role.Author, Role.User),
+  bugController.createBug,
+);
 
 
-router.get('/:id', bugController.findBugByProjectId);
+router.get(
+  '/:id',
+  auth(Role.Admin, Role.Author, Role.User),
+  bugController.findBugByProjectId,
+);
 
 
-router.get('/me', bugController.findAuthorBug);
+router.get(
+  '/bug/me',
+  auth(Role.Admin, Role.Author, Role.User),
+  bugController.findAuthorBug,
+);
 
 
 router.patch(
   '/:id',
-  auth(Role.Admin, Role.Author),
+  auth(Role.Admin, Role.Author,Role.User),
   bugController.updateBug,
 );
 
 
 router.delete(
   '/:id',
-  auth(Role.Admin, Role.Author),
-  bugController.updateBug,
+  auth(Role.Admin, Role.Author,Role.User),
+  bugController.deleteBug,
 );
 
 router.patch(
   '/:id/close',
-  auth(Role.Admin, Role.Author),  bugController.closeBug,
+  auth(Role.Admin, Role.Author,Role.User),  bugController.closeBug,
 );
 
 

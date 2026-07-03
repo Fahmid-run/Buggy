@@ -1,14 +1,26 @@
 import { prisma } from '../../lib/prisma';
-import { isBugOwner } from '../../utils/isOwner';
 
-const createBugIntoDb = async (authorId: string,projectId:string, payload:any) => {
+const createBugIntoDb = async (authorId: string, projectId: string, payload: any) => {
+  
+   const isProjectExists = await prisma.projects.findUniqueOrThrow({
+     where: {
+       id: projectId,
+     }
+   });
+  
+  
+  if (!isProjectExists) {
+    throw new Error("Content Not Available")
+  }
   const result = await prisma.bugs.create({
     data: {
       ...payload,
       authorId,
       projectId
-    },
+    }
   });
+
+  console.log(result)
 
   return result;
 };
@@ -31,7 +43,6 @@ const findBugByProjectId = async (projectId: string) => {
           password: true,
         },
       },
-      bugs: true,
     },
   });
 
@@ -49,8 +60,7 @@ const findAuthorBug = async (authorId: string) => {
         omit: {
           password: true,
         },
-      },
-      bugs: true,
+      }
     },
   });
 
@@ -67,13 +77,10 @@ const updateBug = async (projectId: string,isAdmin:boolean,isOwner:boolean, payl
   if (!isBugExists) {
     throw new Error('Bug Does not Exists');
   }
-  if (!isAdmin) {
+  if (!isAdmin && !isOwner) {
     throw new Error('Forbidden access');
   }
 
-  if (!isOwner) {
-    throw new Error('Forbidden access');
-  }
   const result = await prisma.projects.update({
     where: {
       id: projectId,
@@ -86,26 +93,23 @@ const updateBug = async (projectId: string,isAdmin:boolean,isOwner:boolean, payl
   return result;
 };
 
-const deleteBug = async (projectId: string, isAdmin: boolean, isOwner: boolean) => {
+const deleteBug = async (bugId: string, isAdmin: boolean, isOwner: boolean) => {
   const isBugExists = await prisma.bugs.findUniqueOrThrow({
     where: {
-      id: projectId,
+      id: bugId,
     },
   });
 
   if (!isBugExists) {
     throw new Error('Bug Does not Exists');
   }
-  if (!isAdmin) {
-    throw new Error('Forbidden access');
-  }
+   if (!isAdmin && !isOwner) {
+     throw new Error('Forbidden access');
+   }
 
-  if (!isOwner) {
-    throw new Error('Forbidden access');
-  }
-  const result = await prisma.projects.delete({
+  const result = await prisma.bugs.delete({
     where: {
-      id: projectId,
+      id: bugId,
     },
   });
 
@@ -122,13 +126,11 @@ const closeBug = async (bugId: string, isAdmin: boolean, isOwner:boolean) => {
   if (!isBugExists) {
     throw new Error('Bug Does not Exists');
   }
-  if (!isAdmin) {
+  if (!isAdmin && !isOwner) {
     throw new Error('Forbidden access');
   }
 
-  if (!isOwner) {
-    throw new Error('Forbidden access');
-  }
+ 
   const result = await prisma.bugs.update({
     where: {
       id: bugId,

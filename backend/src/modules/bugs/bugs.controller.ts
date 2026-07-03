@@ -7,16 +7,15 @@ import { isBugOwner } from "../../utils/isOwner";
 
 const createBug = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
-  const authorId = req.user?.id as string;
-  const projectId=req.params.id as string
+  const authorId= req.user?.id as string
+  const projectId = req.params.id as string
+
   const result = await bugService.createBugIntoDb(authorId,projectId, payload);
   sendResponse(res, {
     success: true,
     statusCode: httpstatus.CREATED,
     message: 'Bug Created  Successfully',
-    data: {
-      result,
-    },
+    data: result
   });
 });
 
@@ -27,9 +26,7 @@ const findAllBugs = catchAsync(async (req: Request, res: Response) => {
     success: true,
     statusCode: httpstatus.CREATED,
     message: 'Bugs Retreieved  Successfully',
-    data: {
-      result,
-    },
+    data: result
   });
 });
 
@@ -42,9 +39,7 @@ const findBugByProjectId = catchAsync(async (req: Request, res: Response) => {
     success: true,
     statusCode: httpstatus.CREATED,
     message: 'Bugs Retreieved  Successfully',
-    data: {
-      result,
-    },
+    data: result
   });
 });
 
@@ -57,9 +52,7 @@ const findAuthorBug = catchAsync(async (req: Request, res: Response) => {
     success: true,
     statusCode: httpstatus.CREATED,
     message: 'Bugs Retreieved  Successfully',
-    data: {
-      result,
-    },
+    data: result
   });
 });
 
@@ -75,9 +68,7 @@ const updateBug = catchAsync(async (req: Request, res: Response) => {
     success: true,
     statusCode: httpstatus.CREATED,
     message: 'Bugs Updated  Successfully',
-    data: {
-      result,
-    },
+    data:result
   });
 });
 
@@ -92,9 +83,7 @@ const deleteBug = catchAsync(async (req: Request, res: Response) => {
     success: true,
     statusCode: httpstatus.CREATED,
     message: 'Bugs deleted  Successfully',
-    data: {
-      result,
-    },
+    data: {}
   });
 });
 
@@ -110,10 +99,8 @@ const closeBug = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     success: true,
     statusCode: httpstatus.CREATED,
-    message: 'Bugs deleted  Successfully',
-    data: {
-      result,
-    },
+    message: 'Bug closed',
+    data: result
   });
 })
 
