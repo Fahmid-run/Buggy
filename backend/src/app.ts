@@ -5,6 +5,9 @@ import bodyParser from 'body-parser';
 
 import cors from "cors"
 import configuration from './config';
+import { projectController } from './modules/Projects/project.controller';
+import { projectRoutes } from './modules/Projects/project.route';
+import { bugRoutes } from './modules/bugs/bugs.route';
 const app = express();
 
 app.use(express.json());
@@ -17,6 +20,8 @@ app.use(cors({
 
 
 app.use("/api/", userRoutes)
+app.use('/api/projects', projectRoutes);
+app.use('/api/bugs', bugRoutes);
 
 
 export  default app

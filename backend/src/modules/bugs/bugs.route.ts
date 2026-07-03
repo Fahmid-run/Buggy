@@ -6,34 +6,34 @@ import { bugController } from './bugs.controller';
 
 const router = Router();
 
-router.post('/project/bugs/:id', bugController.createBug);
+router.post('/:id', bugController.createBug);
 
 
-router.get('/project/bugs/:id', bugController.findBugByProjectId);
+router.get('/:id', bugController.findBugByProjectId);
 
 
-router.get('/project/bugs/me', bugController.findAuthorBug);
+router.get('/me', bugController.findAuthorBug);
 
 
 router.patch(
-  '/project/bug/:id',
+  '/:id',
   auth(Role.Admin, Role.Author),
   bugController.updateBug,
 );
 
 
 router.delete(
-  '/project/bug/:id',
+  '/:id',
   auth(Role.Admin, Role.Author),
   bugController.updateBug,
 );
 
 router.patch(
-  '/project/bug/:id/close',
+  '/:id/close',
   auth(Role.Admin, Role.Author),  bugController.closeBug,
 );
 
 
 
 
-export const userRoutes = router;
+export const bugRoutes = router;
