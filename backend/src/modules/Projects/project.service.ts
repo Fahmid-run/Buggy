@@ -60,7 +60,7 @@ const findMyProject = async (authorId: string) => {
   return result;
 };
 
-const updateProject = async (projectId: string, payload: any) => {
+const updateProject = async (projectId: string,isAdmin:boolean,isOwner:boolean, payload: any) => {
   const isProjectExists = await prisma.projects.findUniqueOrThrow({
     where: {
       id:projectId
@@ -70,6 +70,12 @@ const updateProject = async (projectId: string, payload: any) => {
 
   if (!isProjectExists) {
     throw new Error("Project Doesnot Exists")
+  }
+  if (!isAdmin) {
+    throw new Error("forbidden")
+  }
+  if (!isOwner) {
+    throw new Error('forbidden');
   }
   const result = await prisma.projects.update({
     where: {
@@ -83,10 +89,26 @@ const updateProject = async (projectId: string, payload: any) => {
   return result;
 };
 
-const deleteProject = async (projectId: string) => {
+const deleteProject = async (projectId: string, isAdmin: boolean, isOwner: boolean) => {
+  const isProjectExists = await prisma.projects.findUniqueOrThrow({
+    where: {
+      id: projectId,
+    },
+  });
+
+  if (!isProjectExists) {
+    throw new Error('Project Doesnot Exists');
+  }
+
+  if (!isAdmin) {
+    throw new Error('forbidden');
+  }
+  if (!isOwner) {
+    throw new Error('forbidden');
+  }
   const result = await prisma.projects.delete({
     where: {
-      id:projectId
+      id: projectId,
     },
   });
 

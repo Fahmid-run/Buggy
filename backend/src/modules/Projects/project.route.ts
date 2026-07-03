@@ -9,20 +9,43 @@ import { projectController } from './project.controller';
 
 const router = Router();
 
-router.post('/project', projectController.createProject);
+router.post('/projects', projectController.createProject);
 
 
 
 router.get(
-  '/me',
+  '/projects',
   auth(Role.Admin, Role.User, Role.Author),
-  userController.getMyProfile,
+  projectController.findAllProjects,
 );
 
-router.put(
-  '/my-profile',
-  auth(Role.Admin, Role.Author, Role.User),
-  userController.updateMyProfile,
+
+router.get(
+  '/projects/:id',
+  auth(Role.Admin, Role.User, Role.Author),
+  projectController.findProjectById,
 );
+
+
+router.get(
+  '/projects/me',
+  auth(Role.Admin, Role.User, Role.Author),
+  projectController.findMyProject,
+);
+
+
+
+router.patch(
+  '/projects/:id',
+  auth(Role.Admin, Role.Author),
+  projectController.updateProject,
+);
+router.delete(
+  '/projects/:id',
+  auth(Role.Admin, Role.Author),
+  projectController.updateProject,
+);
+
+
 
 export const userRoutes = router;

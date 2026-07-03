@@ -6,6 +6,8 @@ import sendResponse from "../../utils/sendResponse";
 
 
 import { projectService } from "./project.service";
+import { isProjectOwner } from "../../utils/isOwner";
+import { isatty } from "node:tty";
 
 
 
@@ -81,9 +83,13 @@ const findMyProject = catchAsync(async (req: Request, res: Response) => {
 
 
 const updateProject = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.id
-const payload = req.body
-  const result = await projectService.updateProject(id as string,payload);
+  const id = req.params.id as string
+  const payload = req.body
+  
+   const isAdmin = req.user?.role === 'Admin';
+   const isOwner = await isProjectOwner(req.user, id);
+
+  const result = await projectService.updateProject(id as string,isAdmin,isOwner,payload);
 
   sendResponse(res, {
     success: true,
@@ -97,9 +103,15 @@ const payload = req.body
 
 
 const deleteProject = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params?.id;
+  const id = req.params?.id as string
+  const isAdmin= req.user?.role==="Admin"
+  const isOwner =await isProjectOwner(req.user,id)
 
-  const result = await projectService.deleteProject(id as string);
+  const result = await projectService.deleteProject(
+    id as string,
+    isAdmin,
+    isOwner,
+  );
 
   sendResponse(res, {
     success: true,
