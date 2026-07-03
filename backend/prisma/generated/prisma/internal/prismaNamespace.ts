@@ -672,6 +672,7 @@ export const BugsScalarFieldEnum = {
   title: 'title',
   description: 'description',
   bug_status: 'bug_status',
+  priority: 'priority',
   authorId: 'authorId',
   projectId: 'projectId',
   created_at: 'created_at',
@@ -762,6 +763,20 @@ export type EnumBug_StatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
  * Reference to a field of type 'Bug_Status[]'
  */
 export type ListEnumBug_StatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bug_Status[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Bug_Priority'
+ */
+export type EnumBug_PriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bug_Priority'>
+    
+
+
+/**
+ * Reference to a field of type 'Bug_Priority[]'
+ */
+export type ListEnumBug_PriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bug_Priority[]'>
     
 
 

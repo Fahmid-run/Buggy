@@ -9,6 +9,12 @@ enum Bug_Status{
   Open
 }
 
+enum Bug_Priority{
+  Low
+  Midium
+  High
+}
+
 enum Active_Status{
   Blocked
   Active

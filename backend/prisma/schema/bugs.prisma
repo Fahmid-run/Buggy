@@ -3,6 +3,7 @@ model Bugs{
   title String @db.VarChar(100)
   description String? @db.VarChar(300)
   bug_status Bug_Status @default(Open)
+  priority Bug_Priority @default(Low)
    authorId String @unique
   author User @relation(fields: [authorId],references: [id],onDelete: Cascade)
   projectId String @unique

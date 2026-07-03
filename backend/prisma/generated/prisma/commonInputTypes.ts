@@ -51,6 +51,13 @@ export type EnumBug_StatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumBug_StatusFilter<$PrismaModel> | $Enums.Bug_Status
 }
 
+export type EnumBug_PriorityFilter<$PrismaModel = never> = {
+  equals?: $Enums.Bug_Priority | Prisma.EnumBug_PriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.Bug_Priority[] | Prisma.ListEnumBug_PriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Bug_Priority[] | Prisma.ListEnumBug_PriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBug_PriorityFilter<$PrismaModel> | $Enums.Bug_Priority
+}
+
 export type DateTimeFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>
@@ -111,6 +118,16 @@ export type EnumBug_StatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumBug_StatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumBug_StatusFilter<$PrismaModel>
+}
+
+export type EnumBug_PriorityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Bug_Priority | Prisma.EnumBug_PriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.Bug_Priority[] | Prisma.ListEnumBug_PriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Bug_Priority[] | Prisma.ListEnumBug_PriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBug_PriorityWithAggregatesFilter<$PrismaModel> | $Enums.Bug_Priority
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBug_PriorityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBug_PriorityFilter<$PrismaModel>
 }
 
 export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -196,6 +213,13 @@ export type NestedEnumBug_StatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumBug_StatusFilter<$PrismaModel> | $Enums.Bug_Status
 }
 
+export type NestedEnumBug_PriorityFilter<$PrismaModel = never> = {
+  equals?: $Enums.Bug_Priority | Prisma.EnumBug_PriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.Bug_Priority[] | Prisma.ListEnumBug_PriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Bug_Priority[] | Prisma.ListEnumBug_PriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBug_PriorityFilter<$PrismaModel> | $Enums.Bug_Priority
+}
+
 export type NestedDateTimeFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>
@@ -271,6 +295,16 @@ export type NestedEnumBug_StatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumBug_StatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumBug_StatusFilter<$PrismaModel>
+}
+
+export type NestedEnumBug_PriorityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Bug_Priority | Prisma.EnumBug_PriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.Bug_Priority[] | Prisma.ListEnumBug_PriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Bug_Priority[] | Prisma.ListEnumBug_PriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBug_PriorityWithAggregatesFilter<$PrismaModel> | $Enums.Bug_Priority
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBug_PriorityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBug_PriorityFilter<$PrismaModel>
 }
 
 export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {

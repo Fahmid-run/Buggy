@@ -77,6 +77,7 @@ export const BugsScalarFieldEnum = {
   title: 'title',
   description: 'description',
   bug_status: 'bug_status',
+  priority: 'priority',
   authorId: 'authorId',
   projectId: 'projectId',
   created_at: 'created_at',

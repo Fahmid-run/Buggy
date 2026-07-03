@@ -29,6 +29,7 @@ export type BugsMinAggregateOutputType = {
   title: string | null
   description: string | null
   bug_status: $Enums.Bug_Status | null
+  priority: $Enums.Bug_Priority | null
   authorId: string | null
   projectId: string | null
   created_at: Date | null
@@ -40,6 +41,7 @@ export type BugsMaxAggregateOutputType = {
   title: string | null
   description: string | null
   bug_status: $Enums.Bug_Status | null
+  priority: $Enums.Bug_Priority | null
   authorId: string | null
   projectId: string | null
   created_at: Date | null
@@ -51,6 +53,7 @@ export type BugsCountAggregateOutputType = {
   title: number
   description: number
   bug_status: number
+  priority: number
   authorId: number
   projectId: number
   created_at: number
@@ -64,6 +67,7 @@ export type BugsMinAggregateInputType = {
   title?: true
   description?: true
   bug_status?: true
+  priority?: true
   authorId?: true
   projectId?: true
   created_at?: true
@@ -75,6 +79,7 @@ export type BugsMaxAggregateInputType = {
   title?: true
   description?: true
   bug_status?: true
+  priority?: true
   authorId?: true
   projectId?: true
   created_at?: true
@@ -86,6 +91,7 @@ export type BugsCountAggregateInputType = {
   title?: true
   description?: true
   bug_status?: true
+  priority?: true
   authorId?: true
   projectId?: true
   created_at?: true
@@ -170,6 +176,7 @@ export type BugsGroupByOutputType = {
   title: string
   description: string | null
   bug_status: $Enums.Bug_Status
+  priority: $Enums.Bug_Priority
   authorId: string
   projectId: string
   created_at: Date
@@ -202,6 +209,7 @@ export type BugsWhereInput = {
   title?: Prisma.StringFilter<"Bugs"> | string
   description?: Prisma.StringNullableFilter<"Bugs"> | string | null
   bug_status?: Prisma.EnumBug_StatusFilter<"Bugs"> | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityFilter<"Bugs"> | $Enums.Bug_Priority
   authorId?: Prisma.StringFilter<"Bugs"> | string
   projectId?: Prisma.StringFilter<"Bugs"> | string
   created_at?: Prisma.DateTimeFilter<"Bugs"> | Date | string
@@ -215,6 +223,7 @@ export type BugsOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   bug_status?: Prisma.SortOrder
+  priority?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -233,6 +242,7 @@ export type BugsWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Bugs"> | string
   description?: Prisma.StringNullableFilter<"Bugs"> | string | null
   bug_status?: Prisma.EnumBug_StatusFilter<"Bugs"> | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityFilter<"Bugs"> | $Enums.Bug_Priority
   created_at?: Prisma.DateTimeFilter<"Bugs"> | Date | string
   updatedat?: Prisma.DateTimeFilter<"Bugs"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -244,6 +254,7 @@ export type BugsOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   bug_status?: Prisma.SortOrder
+  priority?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -261,6 +272,7 @@ export type BugsScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Bugs"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Bugs"> | string | null
   bug_status?: Prisma.EnumBug_StatusWithAggregatesFilter<"Bugs"> | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityWithAggregatesFilter<"Bugs"> | $Enums.Bug_Priority
   authorId?: Prisma.StringWithAggregatesFilter<"Bugs"> | string
   projectId?: Prisma.StringWithAggregatesFilter<"Bugs"> | string
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Bugs"> | Date | string
@@ -272,6 +284,7 @@ export type BugsCreateInput = {
   title: string
   description?: string | null
   bug_status?: $Enums.Bug_Status
+  priority?: $Enums.Bug_Priority
   created_at?: Date | string
   updatedat?: Date | string
   author: Prisma.UserCreateNestedOneWithoutBugsInput
@@ -283,6 +296,7 @@ export type BugsUncheckedCreateInput = {
   title: string
   description?: string | null
   bug_status?: $Enums.Bug_Status
+  priority?: $Enums.Bug_Priority
   authorId: string
   projectId: string
   created_at?: Date | string
@@ -294,6 +308,7 @@ export type BugsUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bug_status?: Prisma.EnumBug_StatusFieldUpdateOperationsInput | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityFieldUpdateOperationsInput | $Enums.Bug_Priority
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutBugsNestedInput
@@ -305,6 +320,7 @@ export type BugsUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bug_status?: Prisma.EnumBug_StatusFieldUpdateOperationsInput | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityFieldUpdateOperationsInput | $Enums.Bug_Priority
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -316,6 +332,7 @@ export type BugsCreateManyInput = {
   title: string
   description?: string | null
   bug_status?: $Enums.Bug_Status
+  priority?: $Enums.Bug_Priority
   authorId: string
   projectId: string
   created_at?: Date | string
@@ -327,6 +344,7 @@ export type BugsUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bug_status?: Prisma.EnumBug_StatusFieldUpdateOperationsInput | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityFieldUpdateOperationsInput | $Enums.Bug_Priority
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -336,6 +354,7 @@ export type BugsUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bug_status?: Prisma.EnumBug_StatusFieldUpdateOperationsInput | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityFieldUpdateOperationsInput | $Enums.Bug_Priority
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -347,6 +366,7 @@ export type BugsCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   bug_status?: Prisma.SortOrder
+  priority?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -358,6 +378,7 @@ export type BugsMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   bug_status?: Prisma.SortOrder
+  priority?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -369,6 +390,7 @@ export type BugsMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   bug_status?: Prisma.SortOrder
+  priority?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -395,6 +417,10 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type EnumBug_StatusFieldUpdateOperationsInput = {
   set?: $Enums.Bug_Status
+}
+
+export type EnumBug_PriorityFieldUpdateOperationsInput = {
+  set?: $Enums.Bug_Priority
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -490,6 +516,7 @@ export type BugsCreateWithoutProjectInput = {
   title: string
   description?: string | null
   bug_status?: $Enums.Bug_Status
+  priority?: $Enums.Bug_Priority
   created_at?: Date | string
   updatedat?: Date | string
   author: Prisma.UserCreateNestedOneWithoutBugsInput
@@ -500,6 +527,7 @@ export type BugsUncheckedCreateWithoutProjectInput = {
   title: string
   description?: string | null
   bug_status?: $Enums.Bug_Status
+  priority?: $Enums.Bug_Priority
   authorId: string
   created_at?: Date | string
   updatedat?: Date | string
@@ -539,6 +567,7 @@ export type BugsScalarWhereInput = {
   title?: Prisma.StringFilter<"Bugs"> | string
   description?: Prisma.StringNullableFilter<"Bugs"> | string | null
   bug_status?: Prisma.EnumBug_StatusFilter<"Bugs"> | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityFilter<"Bugs"> | $Enums.Bug_Priority
   authorId?: Prisma.StringFilter<"Bugs"> | string
   projectId?: Prisma.StringFilter<"Bugs"> | string
   created_at?: Prisma.DateTimeFilter<"Bugs"> | Date | string
@@ -550,6 +579,7 @@ export type BugsCreateWithoutAuthorInput = {
   title: string
   description?: string | null
   bug_status?: $Enums.Bug_Status
+  priority?: $Enums.Bug_Priority
   created_at?: Date | string
   updatedat?: Date | string
   project: Prisma.ProjectsCreateNestedOneWithoutBugsInput
@@ -560,6 +590,7 @@ export type BugsUncheckedCreateWithoutAuthorInput = {
   title: string
   description?: string | null
   bug_status?: $Enums.Bug_Status
+  priority?: $Enums.Bug_Priority
   projectId: string
   created_at?: Date | string
   updatedat?: Date | string
@@ -596,6 +627,7 @@ export type BugsCreateManyProjectInput = {
   title: string
   description?: string | null
   bug_status?: $Enums.Bug_Status
+  priority?: $Enums.Bug_Priority
   authorId: string
   created_at?: Date | string
   updatedat?: Date | string
@@ -606,6 +638,7 @@ export type BugsUpdateWithoutProjectInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bug_status?: Prisma.EnumBug_StatusFieldUpdateOperationsInput | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityFieldUpdateOperationsInput | $Enums.Bug_Priority
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutBugsNestedInput
@@ -616,6 +649,7 @@ export type BugsUncheckedUpdateWithoutProjectInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bug_status?: Prisma.EnumBug_StatusFieldUpdateOperationsInput | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityFieldUpdateOperationsInput | $Enums.Bug_Priority
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -626,6 +660,7 @@ export type BugsUncheckedUpdateManyWithoutProjectInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bug_status?: Prisma.EnumBug_StatusFieldUpdateOperationsInput | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityFieldUpdateOperationsInput | $Enums.Bug_Priority
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -636,6 +671,7 @@ export type BugsCreateManyAuthorInput = {
   title: string
   description?: string | null
   bug_status?: $Enums.Bug_Status
+  priority?: $Enums.Bug_Priority
   projectId: string
   created_at?: Date | string
   updatedat?: Date | string
@@ -646,6 +682,7 @@ export type BugsUpdateWithoutAuthorInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bug_status?: Prisma.EnumBug_StatusFieldUpdateOperationsInput | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityFieldUpdateOperationsInput | $Enums.Bug_Priority
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectsUpdateOneRequiredWithoutBugsNestedInput
@@ -656,6 +693,7 @@ export type BugsUncheckedUpdateWithoutAuthorInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bug_status?: Prisma.EnumBug_StatusFieldUpdateOperationsInput | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityFieldUpdateOperationsInput | $Enums.Bug_Priority
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -666,6 +704,7 @@ export type BugsUncheckedUpdateManyWithoutAuthorInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bug_status?: Prisma.EnumBug_StatusFieldUpdateOperationsInput | $Enums.Bug_Status
+  priority?: Prisma.EnumBug_PriorityFieldUpdateOperationsInput | $Enums.Bug_Priority
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -678,6 +717,7 @@ export type BugsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   title?: boolean
   description?: boolean
   bug_status?: boolean
+  priority?: boolean
   authorId?: boolean
   projectId?: boolean
   created_at?: boolean
@@ -691,6 +731,7 @@ export type BugsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   title?: boolean
   description?: boolean
   bug_status?: boolean
+  priority?: boolean
   authorId?: boolean
   projectId?: boolean
   created_at?: boolean
@@ -704,6 +745,7 @@ export type BugsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   title?: boolean
   description?: boolean
   bug_status?: boolean
+  priority?: boolean
   authorId?: boolean
   projectId?: boolean
   created_at?: boolean
@@ -717,13 +759,14 @@ export type BugsSelectScalar = {
   title?: boolean
   description?: boolean
   bug_status?: boolean
+  priority?: boolean
   authorId?: boolean
   projectId?: boolean
   created_at?: boolean
   updatedat?: boolean
 }
 
-export type BugsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "bug_status" | "authorId" | "projectId" | "created_at" | "updatedat", ExtArgs["result"]["bugs"]>
+export type BugsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "bug_status" | "priority" | "authorId" | "projectId" | "created_at" | "updatedat", ExtArgs["result"]["bugs"]>
 export type BugsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   project?: boolean | Prisma.ProjectsDefaultArgs<ExtArgs>
@@ -748,6 +791,7 @@ export type $BugsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     title: string
     description: string | null
     bug_status: $Enums.Bug_Status
+    priority: $Enums.Bug_Priority
     authorId: string
     projectId: string
     created_at: Date
@@ -1181,6 +1225,7 @@ export interface BugsFieldRefs {
   readonly title: Prisma.FieldRef<"Bugs", 'String'>
   readonly description: Prisma.FieldRef<"Bugs", 'String'>
   readonly bug_status: Prisma.FieldRef<"Bugs", 'Bug_Status'>
+  readonly priority: Prisma.FieldRef<"Bugs", 'Bug_Priority'>
   readonly authorId: Prisma.FieldRef<"Bugs", 'String'>
   readonly projectId: Prisma.FieldRef<"Bugs", 'String'>
   readonly created_at: Prisma.FieldRef<"Bugs", 'DateTime'>
