@@ -1,6 +1,6 @@
 import { prisma } from "../../lib/prisma"
 
-const createProjectIntoDb = async (id: string,payload:{name:string}) => {
+const createProjectIntoDb = async (id: string,payload:any) => {
 
 
   const result = await prisma.projects.create({
@@ -26,15 +26,7 @@ const findProjectById = async(projectId:string) => {
   const result = await prisma.projects.findUniqueOrThrow({
     where: {
       id: projectId,
-    },
-    include: {
-      author: {
-        omit: {
-          password: true,
-        },
-      },
-      bugs: true,
-    },
+    }
   });
 
   return result
@@ -44,7 +36,7 @@ const findProjectById = async(projectId:string) => {
 const findMyProject = async (authorId: string) => {
   const result = await prisma.projects.findMany({
     where: {
-      authorId,
+      authorId:authorId
     },
     include: {
       author: {
@@ -71,11 +63,8 @@ const updateProject = async (projectId: string,isAdmin:boolean,isOwner:boolean, 
   if (!isProjectExists) {
     throw new Error("Project Doesnot Exists")
   }
-  if (!isAdmin) {
+  if (!isAdmin && !isOwner) {
     throw new Error("forbidden")
-  }
-  if (!isOwner) {
-    throw new Error('forbidden');
   }
   const result = await prisma.projects.update({
     where: {
@@ -100,10 +89,7 @@ const deleteProject = async (projectId: string, isAdmin: boolean, isOwner: boole
     throw new Error('Project Doesnot Exists');
   }
 
-  if (!isAdmin) {
-    throw new Error('forbidden');
-  }
-  if (!isOwner) {
+  if (!isAdmin && !isOwner) {
     throw new Error('forbidden');
   }
   const result = await prisma.projects.delete({

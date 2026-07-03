@@ -9,7 +9,11 @@ import { projectController } from './project.controller';
 
 const router = Router();
 
-router.post('/', projectController.createProject);
+router.post(
+  '/',
+  auth(Role.Admin, Role.User, Role.Author),
+  projectController.createProject,
+);
 
 
 
@@ -28,7 +32,7 @@ router.get(
 
 
 router.get(
-  '/me',
+  '/project/me',
   auth(Role.Admin, Role.User, Role.Author),
   projectController.findMyProject,
 );
@@ -37,13 +41,13 @@ router.get(
 
 router.patch(
   '/:id',
-  auth(Role.Admin, Role.Author),
+  auth(Role.Admin, Role.Author,Role.User),
   projectController.updateProject,
 );
 router.delete(
   '/:id',
-  auth(Role.Admin, Role.Author),
-  projectController.updateProject,
+  auth(Role.Admin, Role.Author,Role.User),
+  projectController.deleteProject,
 );
 
 

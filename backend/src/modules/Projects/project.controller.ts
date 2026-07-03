@@ -1,66 +1,45 @@
-import { Request, request, Response } from "express"
-import catchAsync from "../../utils/catchAsync"
+import { Request, request, Response } from 'express';
+import catchAsync from '../../utils/catchAsync';
 
-import httpstatus from "http-status"
-import sendResponse from "../../utils/sendResponse";
+import httpstatus from 'http-status';
+import sendResponse from '../../utils/sendResponse';
 
-
-import { projectService } from "./project.service";
-import { isProjectOwner } from "../../utils/isOwner";
-import { isatty } from "node:tty";
-
-
+import { projectService } from './project.service';
+import { isProjectOwner } from '../../utils/isOwner';
 
 const createProject = catchAsync(async (req: Request, res: Response) => {
-  
   const payload = req.body;
-  const id = req.user?.id as string
-  const result= await projectService.createProjectIntoDb(id,payload)
-   sendResponse(res, {
-     success: true,
-     statusCode: httpstatus.CREATED,
-     message: 'Project Created  Successfully',
-     data: {
-       result
-     },
-   });
-})
+  const id = req.user?.id as string;
+  const result = await projectService.createProjectIntoDb(id, payload);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpstatus.CREATED,
+    message: 'Project Created  Successfully',
+    data: result,
+  });
+});
 
-const findAllProjects = catchAsync(
-  async (req: Request, res: Response) => {
-
-
+const findAllProjects = catchAsync(async (req: Request, res: Response) => {
   const result = await projectService.findAllProjectsFromDb();
 
-  
-    sendResponse(res, {
-      success: true,
-      statusCode: httpstatus.CREATED,
-      message: 'Project Retreieved  Successfully',
-      data: {
-        result,
-      },
-    });
-  },
-);
-
-
-
-
+  sendResponse(res, {
+    success: true,
+    statusCode: httpstatus.OK,
+    message: 'Project Retreieved  Successfully',
+    data: result,
+  });
+});
 
 const findProjectById = catchAsync(async (req: Request, res: Response) => {
-
   const projectId = req.params.id;
 
   const result = await projectService.findProjectById(projectId as string);
 
   sendResponse(res, {
     success: true,
-    statusCode: httpstatus.CREATED,
+    statusCode: httpstatus.OK,
     message: 'Project Retreieved  Successfully',
-    data: {
-      result,
-    },
+    data: result,
   });
 });
 
@@ -71,41 +50,39 @@ const findMyProject = catchAsync(async (req: Request, res: Response) => {
 
   sendResponse(res, {
     success: true,
-    statusCode: httpstatus.CREATED,
+    statusCode: httpstatus.OK,
     message: 'Project Retreieved  Successfully',
-    data: {
-      result,
-    },
+    data: result,
   });
 });
 
-
-
-
 const updateProject = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.id as string
-  const payload = req.body
-  
-   const isAdmin = req.user?.role === 'Admin';
-   const isOwner = await isProjectOwner(req.user, id);
+  const id = req.params.id as string;
+  const payload = req.body;
 
-  const result = await projectService.updateProject(id as string,isAdmin,isOwner,payload);
+  const isAdmin = req.user?.role === 'Admin';
+  const isOwner = await isProjectOwner(req.user?.id as string, id);
+  console.log(isOwner);
+
+  const result = await projectService.updateProject(
+    id as string,
+    isAdmin,
+    isOwner,
+    payload,
+  );
 
   sendResponse(res, {
     success: true,
-    statusCode: httpstatus.CREATED,
+    statusCode: httpstatus.OK,
     message: 'Project Updated  Successfully',
-    data: {
-      result,
-    },
+    data: result,
   });
 });
 
-
 const deleteProject = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params?.id as string
-  const isAdmin= req.user?.role==="Admin"
-  const isOwner =await isProjectOwner(req.user,id)
+  const id = req.params?.id as string;
+  const isAdmin = req.user?.role === 'Admin';
+  const isOwner = await isProjectOwner(req.user?.id as string, id);
 
   const result = await projectService.deleteProject(
     id as string,
@@ -115,15 +92,11 @@ const deleteProject = catchAsync(async (req: Request, res: Response) => {
 
   sendResponse(res, {
     success: true,
-    statusCode: httpstatus.CREATED,
+    statusCode: httpstatus.OK,
     message: 'Project deleted  Successfully',
-    data: {
-      result,
-    },
+    data: {},
   });
 });
-
-
 
 export const projectController = {
   createProject,

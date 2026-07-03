@@ -14,14 +14,15 @@ export const isBugOwner = async (user: any, bugId: string) => {
 
 
 
-export const isProjectOwner = async (user: any, projectId: string) => {
-  const bug = await prisma.projects.findUniqueOrThrow({
+export const isProjectOwner = async (id: string, projectId: string) => {
+  const project = await prisma.projects.findUniqueOrThrow({
     where: {
       id: projectId,
     },
   });
 
-  const isOwnerOfproject = (user.id === bug.authorId);
+  
+  const isProjectOwner=(id=== project.authorId)
 
-  return isOwnerOfproject
+  return isProjectOwner;
 };
