@@ -1,0 +1,16 @@
+
+enum Role{
+  User
+  Admin
+  Author
+}
+enum Bug_Status{
+  Closed
+  Open
+}
+
+enum Active_Status{
+  Blocked
+  Active
+}
+
