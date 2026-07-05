@@ -18,6 +18,15 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+
+
+  const { user } = useAuth()
+  
+  if (user) {
+      navigate(from, { replace: true });
+    
+  }
+
   const submit = async (e) => {
     e.preventDefault();
     setError('');

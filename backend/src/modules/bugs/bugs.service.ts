@@ -12,6 +12,9 @@ const createBugIntoDb = async (authorId: string, projectId: string, payload: any
   if (!isProjectExists) {
     throw new Error("Content Not Available")
   }
+
+
+
   const result = await prisma.bugs.create({
     data: {
       ...payload,
@@ -20,7 +23,6 @@ const createBugIntoDb = async (authorId: string, projectId: string, payload: any
     }
   });
 
-  console.log(result)
 
   return result;
 };

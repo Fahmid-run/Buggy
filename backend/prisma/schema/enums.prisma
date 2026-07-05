@@ -11,7 +11,7 @@ enum Bug_Status{
 
 enum Bug_Priority{
   Low
-  Midium
+  Medium
   High
 }
 

@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response, Router } from 'express';
 
 import { auth } from '../../middlewares/auth';
-import { Role } from '../../../prisma/generated/prisma/enums';
+
 import { bugController } from './bugs.controller';
+import { Role } from '../../../prisma/generated/prisma/enums';
 
 const router = Router();
 
@@ -19,6 +20,13 @@ router.get(
   auth(Role.Admin, Role.Author, Role.User),
   bugController.findBugByProjectId,
 );
+
+router.get(
+  '/',
+  auth(Role.Admin, Role.Author, Role.User),
+  bugController.findAllBugs,
+);
+
 
 
 router.get(

@@ -38,7 +38,13 @@ export default function Projects() {
     let list = projectArray.filter(p =>
       p.name.toLowerCase().includes(search.toLowerCase()),
     );
-   
+    // list = [...list].sort((a, b) => {
+    //   if (sort === 'newest') return new Date(b.created) - new Date(a.created);
+    //   if (sort === 'oldest') return new Date(a.created) - new Date(b.created);
+    //   if (sort === 'bugs') return b.openBugs - a.openBugs;
+    //   if (sort === 'name') return a.name.localeCompare(b.name);
+    //   return 0;
+    // });
 
     return list;
   }, [projectArray, search]);

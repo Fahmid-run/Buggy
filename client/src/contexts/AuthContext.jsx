@@ -12,13 +12,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // const savedToken = localStorage.getItem(STORAGE_KEYS.AUTH);
-    // const savedUser = localStorage.getItem(STORAGE_KEYS.USER);
-    // if (savedToken && savedUser) {
-    //   setToken(savedToken);
-    //   setUser(JSON.parse(savedUser));
-    // }
-    // setLoading(false);
+    
 
 
     const checkAuthStatus = async() => {
@@ -34,6 +28,9 @@ export function AuthProvider({ children }) {
     }
 
     checkAuthStatus()
+
+    setLoading(false);
+
   }, []);
 
   const login = async payload => {

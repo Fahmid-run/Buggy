@@ -1,8 +1,7 @@
 export const PRIORITY = {
-  LOW: { value: 'low', label: 'Low', color: 'badge-success' },
-  MEDIUM: { value: 'medium', label: 'Medium', color: 'badge-warning' },
-  HIGH: { value: 'high', label: 'High', color: 'badge-error' },
-  CRITICAL: { value: 'critical', label: 'Critical', color: 'badge-error' },
+  LOW: { value: 'Low', label: 'Low', color: 'badge-success' },
+  MEDIUM: { value: 'Medium', label: 'Medium', color: 'badge-warning' },
+  HIGH: { value: 'High', label: 'High', color: 'badge-error' },
 };
 
 export const STATUS = {

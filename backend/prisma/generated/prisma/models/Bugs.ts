@@ -234,8 +234,6 @@ export type BugsOrderByWithRelationInput = {
 
 export type BugsWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  authorId?: string
-  projectId?: string
   AND?: Prisma.BugsWhereInput | Prisma.BugsWhereInput[]
   OR?: Prisma.BugsWhereInput[]
   NOT?: Prisma.BugsWhereInput | Prisma.BugsWhereInput[]
@@ -243,11 +241,13 @@ export type BugsWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"Bugs"> | string | null
   bug_status?: Prisma.EnumBug_StatusFilter<"Bugs"> | $Enums.Bug_Status
   priority?: Prisma.EnumBug_PriorityFilter<"Bugs"> | $Enums.Bug_Priority
+  authorId?: Prisma.StringFilter<"Bugs"> | string
+  projectId?: Prisma.StringFilter<"Bugs"> | string
   created_at?: Prisma.DateTimeFilter<"Bugs"> | Date | string
   updatedat?: Prisma.DateTimeFilter<"Bugs"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   project?: Prisma.XOR<Prisma.ProjectsScalarRelationFilter, Prisma.ProjectsWhereInput>
-}, "id" | "authorId" | "projectId">
+}, "id">
 
 export type BugsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

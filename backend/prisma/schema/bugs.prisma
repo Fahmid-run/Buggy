@@ -3,10 +3,10 @@ model Bugs{
   title String @db.VarChar(100)
   description String? @db.VarChar(300)
   bug_status Bug_Status @default(Open)
-  priority Bug_Priority @default(Low)
-   authorId String @unique
+  priority Bug_Priority @default(Medium)
+  authorId String
   author User @relation(fields: [authorId],references: [id],onDelete: Cascade)
-  projectId String @unique
+  projectId String
   project Projects @relation(fields: [projectId],references: [id],onDelete: Cascade)
   created_at DateTime @default(now()) 
   updatedat DateTime @updatedAt

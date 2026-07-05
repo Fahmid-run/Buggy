@@ -15,6 +15,11 @@ export default function Register() {
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+   const { user } = useAuth();
+
+   if (user) {
+     navigate("/dashboard", { replace: true });
+   }
 
   const submit = async (e) => {
     e.preventDefault();

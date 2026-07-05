@@ -28,7 +28,7 @@ export type Bug_Status = (typeof Bug_Status)[keyof typeof Bug_Status]
 
 export const Bug_Priority = {
   Low: 'Low',
-  Midium: 'Midium',
+  Medium: 'Medium',
   High: 'High'
 } as const
 

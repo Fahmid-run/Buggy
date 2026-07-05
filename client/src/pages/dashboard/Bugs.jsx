@@ -32,41 +32,48 @@ export default function Bugs() {
   const [status, setStatus] = useState('all');
   const [sort, setSort] = useState('newest');
   const [createOpen, setCreateOpen] = useState(false);
-  const [form, setForm] = useState({ title: '', description: '', priority: 'medium', projectId: 'p1', assignee: 'u3' });
+  const [form, setForm] = useState({ title: '', description: '', priority: 'Medium', projectId: '' });
   const [deleteId, setDeleteId] = useState(null);
 
     const projectArray = Array.isArray(projects)
       ? projects
       : projects?.data || [];
 
+    const bugArray = Array.isArray(bugs) ? bugs : bugs?.data || [];
+
+  
 
   const filtered = useMemo(() => {
-    const bugArray = Array.isArray(bugs) ? bugs : bugs?.data || [];
 
     let list = bugArray.filter(b => {
       const matchSearch =
         b.title.toLowerCase().includes(search.toLowerCase()) ||
         b.description.toLowerCase().includes(search.toLowerCase());
-      const matchPriority = priority === 'all' || b.priority === priority;
-      const matchStatus = status === 'all' || b.status === status;
-      return matchSearch && matchPriority && matchStatus;
+      // const matchPriority = priority === 'all' || b.priority === priority;
+      // const matchStatus = status === 'all' || b.status === status;
+      // return matchSearch && matchPriority && matchStatus;
     });
-    const priorityRank = { critical: 0, high: 1, medium: 2, low: 3 };
-    list = [...list].sort((a, b) => {
-      if (sort === 'newest') return new Date(b.created) - new Date(a.created);
-      if (sort === 'oldest') return new Date(a.created) - new Date(b.created);
-      if (sort === 'priority') return priorityRank[a.priority] - priorityRank[b.priority];
-      return 0;
-    });
+    // const priorityRank = { critical: 0, high: 1, medium: 2, low: 3 };
+    // list = [...list].sort((a, b) => {
+    //   if (sort === 'newest') return new Date(b.created) - new Date(a.created);
+    //   if (sort === 'oldest') return new Date(a.created) - new Date(b.created);
+    //   if (sort === 'priority') return priorityRank[a.priority] - priorityRank[b.priority];
+    //   return 0;
+    // });
     return list;
   }, [bugs, search, priority, status, sort]);
 
   const create = async () => {
     if (!form.title) return toast('Title is required.', 'warning');
-    const created = await bugService.create({ ...form, id: 'b' + Date.now(), status: 'open', reporter: 'u1', created: new Date().toISOString().slice(0, 10), updated: new Date().toISOString().slice(0, 10), comments: 0 });
-    setData([created, ...(bugs || [])]);
+    const created = await bugService.create(form);
+    const newCurrentBug= created.data|| created
+
+    const newBugArray = Array.isArray(bugs) ? bugs : bugs?.data || [];
+
+
+    setData([newCurrentBug, ...newBugArray]);
     setCreateOpen(false);
-    setForm({ title: '', description: '', priority: 'medium', projectId: 'p1', assignee: 'u3' });
+    setForm({ title: '', description: '', priority: 'Medium', projectId: '' });
     toast('Bug reported.', 'success');
   };
 

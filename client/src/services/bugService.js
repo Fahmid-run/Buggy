@@ -4,7 +4,7 @@ import { mockBugs } from '../data/mockData';
 export const bugService = {
   async getAll() {
     try {
-      const { data } = await api.get('/bugs');
+      const { data } = await api.get('/api/bugs/');
       return data;
     } catch {
       return mockRequest(mockBugs);
@@ -12,7 +12,7 @@ export const bugService = {
   },
   async getById(id) {
     try {
-      const { data } = await api.get(`/bugs/${id}`);
+      const { data } = await api.get(`/api/bugs/${id}`);
       return data;
     } catch {
       const found = mockBugs.find((b) => b.id === id);
@@ -21,7 +21,14 @@ export const bugService = {
   },
   async create(payload) {
     try {
-      const { data } = await api.post('/bugs', payload);
+      const projectId = payload.projectId
+
+
+      const { data } = await api.post(
+        `/api/bugs/${projectId}`,
+        payload
+      );
+
       return data;
     } catch {
       return mockRequest({ ...payload, id: 'b' + Date.now() });
@@ -29,7 +36,7 @@ export const bugService = {
   },
   async update(id, payload) {
     try {
-      const { data } = await api.put(`/bugs/${id}`, payload);
+      const { data } = await api.put(`/api/bugs/${id}`, payload);
       return data;
     } catch {
       return mockRequest({ ...payload, id });
@@ -37,7 +44,7 @@ export const bugService = {
   },
   async remove(id) {
     try {
-      const { data } = await api.delete(`/bugs/${id}`);
+      const { data } = await api.delete(`/api/bugs/${id}`);
       return data;
     } catch {
       return mockRequest({ success: true });
@@ -45,7 +52,7 @@ export const bugService = {
   },
   async close(id) {
     try {
-      const { data } = await api.post(`/bugs/${id}/close`);
+      const { data } = await api.post(`/api/bugs/${id}/close`);
       return data;
     } catch {
       return mockRequest({ id, status: 'closed' });
@@ -53,7 +60,7 @@ export const bugService = {
   },
   async reopen(id) {
     try {
-      const { data } = await api.post(`/bugs/${id}/reopen`);
+      const { data } = await api.post(`/api/bugs/${id}/reopen`);
       return data;
     } catch {
       return mockRequest({ id, status: 'open' });
