@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { Role } from "../../generated/prisma/enums";
 import catchAsync from "../utils/catchAsync";
 import { jwtUtils } from "../utils/jwt";
 import configuration from "../config";
@@ -7,6 +6,8 @@ import configuration from "../config";
 import httpstatus from "http-status"
 import { JwtPayload } from "jsonwebtoken";
 import { prisma } from "../lib/prisma";
+import { Role } from "../../prisma/generated/prisma/enums";
+import sendResponse from "../utils/sendResponse";
 declare global {
   namespace Express {
     interface Request {
@@ -43,6 +44,15 @@ export const auth = (...requiredRoles: Role[]) => {
       throw new Error(verifiedToken.error);
     }
 
+    if (!verifiedToken.success) {
+      sendResponse(res, {
+        success: false,
+        statusCode:401,
+        message: "You r not logged In",
+        data:{}
+      })
+    }
+
     const { email, name, id, role } = verifiedToken.data as JwtPayload;
 
 
@@ -67,10 +77,7 @@ export const auth = (...requiredRoles: Role[]) => {
       throw new Error('User Not Found');
     }
 
-    if (user.active_status == 'Block') {
-      throw new Error('Your Account Has been Blocked. Plz Contact Support');
-    }
-
+    
     req.user = {
       name,
       email,

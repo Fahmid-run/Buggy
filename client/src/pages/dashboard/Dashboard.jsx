@@ -142,7 +142,7 @@ export default function Dashboard() {
                 <CardTitle>Recent Projects</CardTitle>
                 <Link to="/projects" className="text-sm text-primary hover:underline">View all</Link>
               </div>
-              {lp ? (
+              {/* {lp ? (
                 <div className="space-y-3">{[1,2,3].map((i) => <div key={i} className="skeleton h-16 w-full" />)}</div>
               ) : recentProjects.length === 0 ? (
                 <EmptyState title="No projects yet" message="Create your first project to get started." />
@@ -166,7 +166,7 @@ export default function Dashboard() {
                     </Link>
                   ))}
                 </div>
-              )}
+              )} */}
             </CardBody>
           </Card>
         </div>

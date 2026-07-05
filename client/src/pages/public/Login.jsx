@@ -13,7 +13,7 @@ export default function Login() {
   const location = useLocation();
   const from = location.state?.from?.pathname || '/dashboard';
 
-  const [form, setForm] = useState({ username: '', password: '', remember: true });
+  const [form, setForm] = useState({ email: '', password: '', remember: true });
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -24,7 +24,7 @@ export default function Login() {
     setLoading(true);
     try {
       const user = await login(form);
-      toast(`Welcome back, ${user.name.split(' ')[0]}!`, 'success');
+      toast(`Welcome back`);
       navigate(from, { replace: true });
     } catch (err) {
       setError(err.message || 'Login failed');
@@ -39,7 +39,7 @@ export default function Login() {
       <div className="hidden lg:flex flex-col justify-between p-12 bg-base-200 border-r border-base-300">
         <Link to="/" className="flex items-center gap-2">
           <div className="w-9 h-9 rounded-lg bg-primary grid place-items-center text-primary-content font-bold">B</div>
-          <span className="text-xl font-bold">BugFlow</span>
+          <span className="text-xl font-bold">Buggy</span>
         </Link>
         <div>
           <h2 className="text-4xl font-bold tracking-tight leading-tight">Welcome back to your workspace.</h2>
@@ -51,7 +51,7 @@ export default function Login() {
             <p className="text-sm text-base-content/60">Trusted by 12,000+ teams</p>
           </div>
         </div>
-        <p className="text-sm text-base-content/40">© 2024 BugFlow, Inc.</p>
+        <p className="text-sm text-base-content/40">© 2024 Buggy, Inc.</p>
       </div>
 
       {/* Right form */}
@@ -70,11 +70,11 @@ export default function Login() {
 
           <form onSubmit={submit} className="mt-6 space-y-4">
             <div>
-              <label className="label"><span className="label-text">Username</span></label>
+              <label className="label"><span className="label-text">Email</span></label>
               <input
                 type="text"
-                value={form.username}
-                onChange={(e) => setForm({ ...form, username: e.target.value })}
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
                 placeholder="avamitch"
                 className="input input-bordered w-full"
                 autoComplete="username"

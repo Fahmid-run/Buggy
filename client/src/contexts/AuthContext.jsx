@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { STORAGE_KEYS } from '../constants';
 import { mockUsers } from '../data/mockData';
+import api from '../services/axios';
+import { authService } from '../services/authService';
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -10,51 +12,64 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const savedToken = localStorage.getItem(STORAGE_KEYS.AUTH);
-    const savedUser = localStorage.getItem(STORAGE_KEYS.USER);
-    if (savedToken && savedUser) {
-      setToken(savedToken);
-      setUser(JSON.parse(savedUser));
+    // const savedToken = localStorage.getItem(STORAGE_KEYS.AUTH);
+    // const savedUser = localStorage.getItem(STORAGE_KEYS.USER);
+    // if (savedToken && savedUser) {
+    //   setToken(savedToken);
+    //   setUser(JSON.parse(savedUser));
+    // }
+    // setLoading(false);
+
+
+    const checkAuthStatus = async() => {
+      try {
+        const {data}= await api.get('/api/me')
+        setUser(data)
+
+      } catch (error) {
+        setUser(null)
+      } finally {
+        setLoading(false)
+      }
     }
-    setLoading(false);
+
+    checkAuthStatus()
   }, []);
 
-  const login = async ({ username, password }) => {
-    // Mock auth: accept any non-empty credentials, default to admin user.
-    await new Promise((r) => setTimeout(r, 600));
-    if (!username || !password) {
-      throw new Error('Please enter both username and password.');
+  const login = async payload => {
+    await new Promise(r => setTimeout(r, 600));
+    if (!payload.email || !payload.password) {
+      throw new Error('Please enter both email and password.');
     }
-    const found = mockUsers.find((u) => u.username === username) || mockUsers[0];
-    const mockToken = 'mock.jwt.' + btoa(found.id);
-    localStorage.setItem(STORAGE_KEYS.AUTH, mockToken);
-    localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(found));
-    setToken(mockToken);
-    setUser(found);
-    return found;
+
+    try {
+      
+      const result = await authService.login(payload);
+      setUser(result.data)
+    } catch (error) {
+      throw new Error("plz try again")
+    }
+
+
   };
 
-  const register = async ({ name, username, email, password }) => {
-    await new Promise((r) => setTimeout(r, 800));
-    if (!name || !username || !email || !password) {
+  const register = async payload => {
+    await new Promise(r => setTimeout(r, 800));
+
+    if (!payload.name || !payload.email || !payload.password) {
       throw new Error('All fields are required.');
     }
-    const newUser = {
-      id: 'u' + (mockUsers.length + 1),
-      name,
-      username,
-      email,
-      role: 'developer',
-      status: 'active',
-      avatar: `https://i.pravatar.cc/150?u=${username}`,
-      joined: new Date().toISOString().slice(0, 10),
-    };
-    const mockToken = 'mock.jwt.' + btoa(newUser.id);
-    localStorage.setItem(STORAGE_KEYS.AUTH, mockToken);
-    localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(newUser));
-    setToken(mockToken);
-    setUser(newUser);
-    return newUser;
+
+    try {
+      const result = await authService.register(payload);
+    setUser(result.data);
+
+      return result;
+    } catch (error) {
+    setUser(null);
+
+      throw new Error(error);
+    }
   };
 
   const logout = () => {
@@ -64,8 +79,8 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
-  const updateProfile = (updates) => {
-    setUser((prev) => {
+  const updateProfile = updates => {
+    setUser(prev => {
       const next = { ...prev, ...updates };
       localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(next));
       return next;
@@ -73,7 +88,9 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, register, logout, updateProfile }}>
+    <AuthContext.Provider
+      value={{ user, token, loading, login, register, logout, updateProfile }}
+    >
       {children}
     </AuthContext.Provider>
   );

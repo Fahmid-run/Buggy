@@ -1,21 +1,34 @@
 import api, { mockRequest } from './axios';
 import { mockUsers } from '../data/mockData';
+import { PiYarn } from 'react-icons/pi';
 
 export const authService = {
-  async login(credentials) {
+  async login(payload) {
     try {
-      const { data } = await api.post('/auth/login', credentials);
+       const email = payload.email;
+       const password = payload.password;
+      const { data } = await api.post('/api/auth/login', { email, password }, {
+        withCredentials: true
+      });
       return data;
-    } catch {
-      return mockRequest({ user: mockUsers[0], token: 'mock.jwt.token' });
+    } catch (error) {
+      throw new Error(error);
     }
   },
   async register(payload) {
     try {
-      const { data } = await api.post('/auth/register', payload);
+      const name = payload.name;
+      const email = payload.email;
+      const password = payload.password;
+      const { data } = await api.post('/api/register', {
+        name,
+        email,
+        password,
+      });
+
       return data;
-    } catch {
-      return mockRequest({ user: { ...payload, id: 'u_new' }, token: 'mock.jwt.token' });
+    } catch (error) {
+      throw new Error(error.message);
     }
   },
   async forgotPassword(email) {

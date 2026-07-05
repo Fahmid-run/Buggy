@@ -11,7 +11,7 @@ export default function Register() {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({ name: '', username: '', email: '', password: '', confirm: '', terms: false });
+  const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '', terms: false });
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -24,8 +24,9 @@ export default function Register() {
     setLoading(true);
     try {
       const user = await register(form);
-      toast(`Account created. Welcome, ${user.name.split(' ')[0]}!`, 'success');
-      navigate('/dashboard');
+      
+      toast(`Account created`);
+      navigate('/login');
     } catch (err) {
       setError(err.message || 'Registration failed');
     } finally {
@@ -38,13 +39,13 @@ export default function Register() {
       <div className="hidden lg:flex flex-col justify-between p-12 bg-base-200 border-r border-base-300">
         <Link to="/" className="flex items-center gap-2">
           <div className="w-9 h-9 rounded-lg bg-primary grid place-items-center text-primary-content font-bold">B</div>
-          <span className="text-xl font-bold">BugFlow</span>
+          <span className="text-xl font-bold">Buggy</span>
         </Link>
         <div>
           <h2 className="text-4xl font-bold tracking-tight leading-tight">Start tracking bugs the modern way.</h2>
           <p className="mt-4 text-base-content/60 max-w-md">Create your free workspace in seconds. No credit card required.</p>
         </div>
-        <p className="text-sm text-base-content/40">© 2024 BugFlow, Inc.</p>
+        <p className="text-sm text-base-content/40">© 2024 Buggy, Inc.</p>
       </div>
 
       <div className="flex items-center justify-center p-6 sm:p-12">
@@ -55,13 +56,10 @@ export default function Register() {
           {error && <Alert tone="error" className="mt-5">{error}</Alert>}
 
           <form onSubmit={submit} className="mt-6 space-y-4">
+            
             <div>
-              <label className="label"><span className="label-text">Full name</span></label>
-              <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Jane Doe" className="input input-bordered w-full" />
-            </div>
-            <div>
-              <label className="label"><span className="label-text">Username</span></label>
-              <input value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} placeholder="janedoe" className="input input-bordered w-full" />
+              <label className="label"><span className="label-text">Name</span></label>
+              <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="janedoe" className="input input-bordered w-full" />
             </div>
             <div>
               <label className="label"><span className="label-text">Email</span></label>

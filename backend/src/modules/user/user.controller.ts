@@ -21,9 +21,7 @@ const registerUser = catchAsync(
       success: true,
       statusCode: httpstatus.CREATED,
       message: 'user registered successfully',
-      data: {
-        user,
-      },
+      data:user
     });
   },
 );

@@ -24,8 +24,15 @@ export default function ProjectDetails() {
   const { data: allBugs } = useFetch(() => bugService.getAll(), []);
   const { data: allNotes } = useFetch(() => noteService.getAll(), []);
 
-  const bugs = (allBugs || []).filter((b) => b.projectId === id);
-  const notes = (allNotes || []).filter((n) => n.projectId === id);
+
+
+  const allBugsArray = Array.isArray(allBugs) ? allBugs : allBugs.data || []
+  const allNotesArray = Array.isArray(allNotes)
+    ? allNotes
+    : allNotes.data || [];
+  
+  const bugs = allBugsArray.filter(b => b.projectId === id);
+  const notes = allNotesArray.filter(n => n.projectId === id);
 
   if (loading) return <div className="space-y-4">{[1,2,3].map((i) => <div key={i} className="skeleton h-24 w-full rounded-2xl" />)}</div>;
   if (!project) return <EmptyState title="Project not found" message="This project may have been deleted." action={<Link to="/projects"><Button>Back to projects</Button></Link>} />;

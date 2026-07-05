@@ -6,7 +6,7 @@ config({
 });
 
 const configuration = {
-  AppPort: process.env.PORT,
+  AppPort: process.env.APP_URL,
   DB_Url: process.env.DATABASE_URL,
   APP_URL: process.env.APP_URL,
   BCRYPT_SALT_ROUNDS: process.env.BCRYPT_SALT_ROUNDS,

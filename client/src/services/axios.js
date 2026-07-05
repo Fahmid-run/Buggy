@@ -4,8 +4,9 @@ import { STORAGE_KEYS } from '../constants';
 const baseURL = import.meta.env.VITE_API_URL || '/api';
 
 const api = axios.create({
-  baseURL,
+  baseURL:"http://localhost:3000",
   headers: { 'Content-Type': 'application/json' },
+  withCredentials:true,
   timeout: 10000,
 });
 
